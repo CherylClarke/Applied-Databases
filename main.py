@@ -8,4 +8,5 @@
 ## rename in neo4j admin to appdbproj
 ## in cmd line run : C:Users\appDB\Documents\neo4j-community-5.26.19\bin>neo4j.bat console
 ## localhost:7474\
-## ISSUE WITH LOGGG IN 
+## select database appdbproj, paste code in from appdbproj.json file into the query box and run it
+
