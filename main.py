@@ -12,5 +12,36 @@
 ## select database appdbproj, paste code in from appdbproj.json file into the query box and run it
 
 # Conect to MySQL from python
+## in anaconda prompt run conda install pymysql, as not included by default
+## and y
+
+
+## to check if it 
+
+try:
+    import pymysql
+except ImportError:
+    pymysql = None
+
+
+def connect_to_mysql():
+    if pymysql is None:
+        raise ImportError(
+            "PyMySQL is not installed. Run: pip install pymysql"
+        )
+
+    return pymysql.connect(
+        host="localhost",
+        user="root",
+        password="",
+        database="appdbproj",
+        cursorclass=pymysql.cursors.DictCursor
+    )
+conn = connect_to_mysql()
+
+print("Connected successfully!")
+
+conn.close()
+
 
 
