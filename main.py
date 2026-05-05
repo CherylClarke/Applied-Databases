@@ -16,7 +16,10 @@
 ## and y
 
 
-## to check if it 
+## to import pymysql in python, run the code below, if it runs without error then it is installed correctly
+## will only work if run inside vm as host is localhost, if run outside vm will get error as it cannot connect to mysql server
+
+
 
 try:
     import pymysql
@@ -37,6 +40,9 @@ def connect_to_mysql():
         database="appdbproj",
         cursorclass=pymysql.cursors.DictCursor
     )
+
+## to check the connection to MySQL, run the code below, if it prints "Connected successfully!" then it is working correctly
+
 conn = connect_to_mysql()
 
 print("Connected successfully!")
