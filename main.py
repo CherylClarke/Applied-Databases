@@ -1,5 +1,7 @@
 # PYTHON APPLICATIONS
 
+#Steps i followed below:
+
 # MySQL= the data
 ## copy and paste the code from the appdbproj.sql file into MYSQL in vm
 ## check it worked by input : SELECT * FROM attendee;
