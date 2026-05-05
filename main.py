@@ -1,8 +1,8 @@
 # PYTHON APPLICATIONS
 
-## MySQL= the data
-# copy and paste the code from the appdbproj.sql file into MYSQL in vm
-# check it worked by input : SELECT * FROM attendee;
+# MySQL= the data
+## copy and paste the code from the appdbproj.sql file into MYSQL in vm
+## check it worked by input : SELECT * FROM attendee;
 
 # Neo4j = connections/relationships
 ## rename in neo4j admin to appdbproj and un comment the code
