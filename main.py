@@ -15,11 +15,12 @@
 
 # Conect to MySQL from python
 ## in anaconda prompt run conda install pymysql, as not included by default
-## and y
+
 
 
 ## to import pymysql in python, run the code below, if it runs without error then it is installed correctly
-## will only work if run inside vm as host is localhost, if run outside vm will get error as it cannot connect to mysql server
+## will only work if run inside vm as host is localhost (host="localhost"), if run outside vm will get error as it cannot connect to mysql server
+## would need to use the ip address of the vm instead of localhost to connect from outside the vm, but we are running this inside vm so below code:
 
 
 
@@ -51,5 +52,12 @@ print("Connected successfully!")
 
 conn.close()
 
+## now we have connected to MySQL, we can run queries to get data from the database and use it in our application. 
+## We can also connect to Neo4j and run queries to get relationships between the data.
+
+# App building
+
+## now to set up the application display as outlined in project specification,
+## we will use the data from MySQL and the relationships from Neo4j to create an app that displays the data in a user-friendly way.
 
 
