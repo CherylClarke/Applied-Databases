@@ -61,15 +61,21 @@ conn.close()
 ## we will use the data from MySQL and the relationships from Neo4j to create an app that displays the data in a user-friendly way.
 
 
+
+# Order to build the app,(as advised byreference in reference folder) we will follow the steps below:
+
+
+# Main menu
+# Option 1
+# Option 6
+# Option 2
+# Option 3
+# Option 4
+# Option 5
+
+
 ## menu page
 ## this will be main page of app
-
-
-# (def main_menu():) creates the menu function and (while True:) keeps the menu showing again and again.
-# print() displays each line of the menu as is shown in the project spec in cluding seperator lines and blank lines.
-
-# if and elif check which option the user entered.
-
 
 
 def main_menu():
@@ -93,34 +99,30 @@ def main_menu():
             view_speakers_sessions()
 
         elif choice == "2":
-            print("View Attendees by Company selected")
+            view_attendees_by_company()
 
         elif choice == "3":
-            print("Add New Attendee selected")
+            add_new_attendee()
 
         elif choice == "4":
-            print("View Connected Attendees selected")
+            print("Option 4 later")
 
         elif choice == "5":
-            print("Add Attendee Connection selected")
+            print("Option 5 later")
 
         elif choice == "6":
-            print("View Rooms selected")
+            view_rooms()
 
         elif choice.lower() == "x":
             print("Exiting application...")
             break
 
         else:
-            print("Invalid choice. Please try again.")
+            print("Invalid choice")
 
 
-main_menu()
+#layout of menu page, will add functionality to options later
+#1,2,3 will use MySQL data, 4 and 5 will use Neo4j data, 6 will use MySQL data
 
 
-# to stop
-# choice.lower() == "x" allows both x and X to exit.
-# break stops the loop and closes the program.
 
-#to start again
-# main_menu() starts the program again and shows the menu.
