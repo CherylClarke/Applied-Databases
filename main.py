@@ -251,3 +251,61 @@ def view_attendees_by_company():
 
 
 
+# Option 3. Add new attendee
+
+def add_new_attendee(): # like above this creates function for option 3
+    print("\nAdd New Attendee")# headings
+    print("----------------")
+
+    attendee_id = input("Attendee ID : ") # shows the parameters need and place to input them
+    name = input("Name : ")
+    dob = input("DOB : ")
+    gender = input("Gender : ")
+    company_id = input("Company ID : ")
+
+    if gender not in ["Male", "Female"]: # to check if input is valid
+        print("*** ERROR *** Gender must be Male/Female") # if not show error message and return to main menu
+        return
+
+    conn = connect_to_mysql()
+    cursor = conn.cursor() # connects to my sql and creates cursor
+
+    cursor.execute(
+        "SELECT companyID FROM company WHERE companyID = %s",
+        (company_id,)
+    ) # cursor executes query to check for company id
+
+    company = cursor.fetchone() # this will show if found
+
+    if company is None:
+        print("*** ERROR *** Company ID:", company_id, "does not exist")
+        cursor.close()
+        conn.close()
+        return # if not found shows error message and returns to main menu
+
+    try:
+        sql = """
+        INSERT INTO attendee
+        (attendeeID, attendeeName, attendeeDOB, attendeeGender, attendeeCompanyID)
+        VALUES (%s, %s, %s, %s, %s)
+        """ # this will add new row to attendee table , the %s is going to be replaced with values the user adds, just holds spot for now
+
+        cursor.execute(sql, (attendee_id, name, dob, gender, company_id))
+        conn.commit()
+
+        print("\nAttendee successfully added") # if all requirement met , added and shows message
+
+    except pymysql.err.IntegrityError:
+        print("*** ERROR *** Attendee ID:", attendee_id, "already exists") # shows if already exists
+
+    except Exception as e:
+        print("*** ERROR ***", e)# if any other error occurs it will show the error message
+
+    cursor.close()
+    conn.close()
+
+
+
+# now that everything is in place we can run the main menu function to start the application
+
+main_menu()
