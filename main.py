@@ -188,3 +188,66 @@ def view_rooms(): # creates function for option 6, display rooms
         print(room["roomID"], "|", room["roomName"], "|", room["capacity"])
 
 
+
+# option 2. view attendees by company
+
+def view_attendees_by_company():
+    while True: # this will make the user keep being asked for input until valid one is given
+        company_id = input("\nEnter Company ID : ") # this asked the user 
+
+        if not company_id.isdigit() or int(company_id) <= 0: # this will check if its valid , wont take letter,symbols, minus numbers or 0
+            continue
+
+        company_id = int(company_id)
+
+        conn = connect_to_mysql()
+        cursor = conn.cursor()
+
+        cursor.execute(
+            "SELECT companyName FROM company WHERE companyID = %s",
+            (company_id,)
+        )
+
+        company = cursor.fetchone() # this will make it get one matching company
+
+        if company is None:   # if it doesnt find a matching company
+            print("Company with ID", company_id, "doesn't exist")
+            cursor.close()
+            conn.close()
+            continue  # closes and goes backto start of loop ,ask for id again
+
+        sql = """ # this is the query to get the required data, it connects all the tables together using the relationships between them, and filters by company id
+        SELECT attendeeName, attendeeDOB, sessionTitle, speakerName, sessionDate, roomName
+        FROM company
+        JOIN attendee ON company.companyID = attendee.attendeeCompanyID
+        JOIN registration ON attendee.attendeeID = registration.attendeeID
+        JOIN session ON registration.sessionID = session.sessionID
+        JOIN room ON session.roomID = room.roomID
+        WHERE company.companyID = %s
+        ORDER BY attendeeName
+        """
+
+        cursor.execute(sql, (company_id,))
+        results = cursor.fetchall()
+
+        print(company["companyName"], "Attendees")
+
+        if results:
+            for row in results:
+                print(
+                    row["attendeeName"], "|",
+                    row["attendeeDOB"], "|",
+                    row["sessionTitle"], "|",
+                    row["speakerName"], "|",
+                    row["sessionDate"], "|",
+                    row["roomName"]
+                )
+        else:
+            print("No attendees found for", company["companyName"])
+# to run if company is found but no attendees found for that company
+        cursor.close()
+        conn.close()
+        break
+
+
+
