@@ -159,3 +159,32 @@ def view_speakers_sessions():# this creates the function for option 1.
 
     cursor.close()
     conn.close()
+
+
+# option 6. view rooms
+
+
+
+def load_rooms():# creates function
+    conn = connect_to_mysql() # connects to database
+    cursor = conn.cursor() 
+
+    cursor.execute("SELECT roomID, roomName, capacity FROM room")
+    rooms = cursor.fetchall()
+
+    cursor.close()
+    conn.close() # closes connection and cursor 
+
+    return rooms
+
+
+rooms_cache = load_rooms() ## Any new rooms added after the option is first chosen will not be shown 
+
+
+def view_rooms(): # creates function for option 6, display rooms
+    print("\nRoomID | RoomName | Capacity") # print column headings
+
+    for room in rooms_cache:
+        print(room["roomID"], "|", room["roomName"], "|", room["capacity"])
+
+
