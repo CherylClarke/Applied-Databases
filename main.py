@@ -125,4 +125,37 @@ def main_menu():
 #1,2,3 will use MySQL data, 4 and 5 will use Neo4j data, 6 will use MySQL data
 
 
+# option 1. view speakers and sessions
 
+
+
+
+def view_speakers_sessions():# this creates the function for option 1.
+    speaker_name = input("\nEnter speaker name : ")#asks for input parameter to search for in database
+
+    conn = connect_to_mysql()# opens connection to database
+    cursor = conn.cursor()# this sends the query to database,query below:
+
+# query to get required and connects each session to its room, both tables have room id
+    sql = """
+    SELECT speakerName, sessionTitle, roomName 
+    FROM session
+    JOIN room ON session.roomID = room.roomID
+    WHERE speakerName LIKE %s
+    """
+
+    search_value = "%" + speaker_name + "%"
+    cursor.execute(sql, (search_value,))# runs the query specified
+    results = cursor.fetchall()
+
+    print("Session Details For :", speaker_name)
+    print("------------------------------------------------")
+
+    if results:
+        for row in results:
+            print(row["speakerName"], "|", row["sessionTitle"], "|", row["roomName"])
+    else:
+        print("No speakers found of that name")
+
+    cursor.close()
+    conn.close()
